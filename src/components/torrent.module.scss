@@ -1,0 +1,56 @@
+$progress-bg-color: #e0e0e0;
+$progress-bar-color: #4c72af;
+$progress-bar-height: 5px;
+$progress-bar-radius: 5px;
+$progress-bar-line-height: 20px;
+$progress-bar-text-color: white;
+
+.torrentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.torrentTitle {
+  font-size: 16px;
+}
+
+.torrentSubtext {
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.progressContainer {
+  width: 100%;
+  height: $progress-bar-height;
+  background-color: $progress-bg-color;
+  border-radius: $progress-bar-radius;
+  overflow: hidden;
+
+  .progressBar {
+    height: 100%;
+    background-color: $progress-bar-color;
+    text-align: center;
+    line-height: $progress-bar-line-height;
+    color: $progress-bar-text-color;
+    font-weight: bold;
+  }
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  padding: 5px;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: red;
+  }
+}
