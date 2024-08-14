@@ -4,9 +4,11 @@ import { formatSize, formatSpeed } from "../utils/utils";
 import styles from "./torrent.module.scss";
 import { IconDelete } from "../shared/Icons";
 
-export default function Torrent({ torrent, refetch }: { torrent: TorrentProps; refetch: () => void }) {
+export default function Torrent({ torrent }: { torrent: TorrentProps }) {
   const [remainingTime, setRemainingTime] = useState<string>("");
-  const prevSizeRef = useRef<number>(torrent.additional.transfer.size_downloaded);
+  const prevSizeRef = useRef<number>(
+    torrent.additional.transfer.size_downloaded
+  );
   const lastUpdateRef = useRef<number>(Date.now());
 
   const downloadedSize = torrent.additional.transfer.size_downloaded;
@@ -37,7 +39,16 @@ export default function Torrent({ torrent, refetch }: { torrent: TorrentProps; r
     lastUpdateRef.current = now;
   }, [torrent.size, torrent.additional.transfer.size_downloaded]);
 
-  async function onPauseResume(id: string, status: "error" | "paused" | "downloading" | "seeding" | "completed" | "waiting") {
+  async function onPauseResume(
+    id: string,
+    status:
+      | "error"
+      | "paused"
+      | "downloading"
+      | "seeding"
+      | "completed"
+      | "waiting"
+  ) {
     const method = status === "paused" ? "resume" : "pause";
     const url = `/api/webapi/DownloadStation/task.cgi?api=SYNO.DownloadStation.Task&version=3&method=${method}&id=${id}`;
 
@@ -49,7 +60,7 @@ export default function Torrent({ torrent, refetch }: { torrent: TorrentProps; r
         },
       });
       if (response.ok) {
-        refetch();
+        // refetch();
       }
 
       if (!response.ok) {
@@ -71,7 +82,7 @@ export default function Torrent({ torrent, refetch }: { torrent: TorrentProps; r
         },
       });
       if (response.ok) {
-        refetch();
+        // refetch();
       }
 
       if (!response.ok) {
@@ -96,7 +107,9 @@ export default function Torrent({ torrent, refetch }: { torrent: TorrentProps; r
         <div className={styles.torrentSubtext} style={{ marginLeft: 20 }}>
           Time Remaining: {remainingTime}
         </div>
-        <button onClick={() => onPauseResume(torrent.id, torrent.status)}>{torrent.status === "downloading" ? "Pause" : "Resume"}</button>
+        <button onClick={() => onPauseResume(torrent.id, torrent.status)}>
+          {torrent.status === "downloading" ? "Pause" : "Resume"}
+        </button>
         <div onClick={() => onDelete(torrent.id)} className={styles.icon}>
           <IconDelete />
         </div>

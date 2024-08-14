@@ -51,10 +51,10 @@ export function formatSize(sizeInBytes: number) {
 
 export function debounce(func: () => void, delay: number) {
   let timeoutId: NodeJS.Timeout;
-  return (...args: any[]) => {
+  return () => {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
-    timeoutId = setTimeout(() => func(...args), delay);
+    timeoutId = setTimeout(() => func(), delay);
   };
 }

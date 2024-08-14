@@ -1,19 +1,27 @@
 import "./App.css";
-import { useLogin } from "./hooks/useLogin";
 import Torrents from "./components/Torrents";
+import { useEffect, useState } from "react";
 
 function App() {
-  const { loginData, loading } = useLogin();
+  //const { loginData, loading } = useLogin();
+  //const [sajt, setSajt] = useState<string>("asd");
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  useEffect(() => {
+    chrome.runtime.sendMessage({ action: "login" }, (response) => {
+      if (response.success) {
+        setLoggedIn(true);
+      } /* else {
+        setLoggedIn(false);
+      }*/
+    });
+  }, []);
 
-  if (loading) {
+  /*if (loading) {
     return <div>Logging in...</div>;
   }
+*/
 
-  if (loginData?.error) {
-    return <div>Error</div>;
-  }
-
-  if (loginData?.success) {
+  if (loggedIn) {
     return <Torrents />;
   }
   return null;

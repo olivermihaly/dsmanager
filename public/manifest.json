@@ -19,5 +19,12 @@
     "16": "icon-16.png",
     "32": "icon-32.png",
     "128": "icon-128.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
 }
